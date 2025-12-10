@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanish Tyagi | Data Science Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #60a5fa;
+      --accent-soft: rgba(96, 165, 250, 0.1);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --card: #111827;
+      --border: #1f2933;
+      --radius: 18px;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d2538 0, #020617 55%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 20px 20px 50px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 10px 6px 20px;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-left: 18px;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 30px;
+      align-items: center;
+      padding: 22px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.9));
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -80%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(96, 165, 250, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.12) 0, transparent 55%);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .hero-left, .hero-right {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-bottom: 10px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 2.6vw + 1.1rem, 2.7rem);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 34rem;
+      margin-bottom: 16px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      color: var(--accent);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, #38bdf8, #6366f1);
+      color: #0b1120;
+      box-shadow: 0 12px 26px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .hero-right-card {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 16px 16px 18px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-right-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .metric-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 9px;
+    }
+
+    .metric-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .metric-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero-right-footer {
+      border-radius: 16px;
+      padding: 10px 10px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      font-size: 0.75rem;
+      color: #e5e7eb;
+    }
+
+    /* Sections */
+    section {
+      padding: 10px 4px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 14px 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.7);
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin-top: 4px;
+      padding-left: 16px;
+      list-style: disc;
+    }
+
+    .card li {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .pill-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    /* Skills layout */
+    .skills-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .skills-columns h3 {
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .skills-columns p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Contact / footer */
+    .contact-card {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 16px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(31, 41, 55, 0.8);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .section-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .skills-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      nav {
+        display: none; /* keep it super simple on mobile for now */
+      }
+
+      .page {
+        padding: 16px 14px 40px;
+      }
+
+      .hero {
+        padding: 16px;
+      }
+
+      .section-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .skills-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">KANISH • PORTFOLIO</div>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="hero-left">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Open to Summer 2026 Internships
+          </div>
+          <h1 class="hero-title">
+            Hi, I’m <span>Kanish Tyagi</span> 👋
+          </h1>
+          <p class="hero-subtitle">
+            MS in Data Science @ University of Texas at Arlington • 3 years of QA experience •
+            I love working with data, building reports, and turning real-world problems into clear, visual insights.
+          </p>
+          <div class="hero-tags">
+            <span class="hero-tag">Python</span>
+            <span class="hero-tag">SQL</span>
+            <span class="hero-tag">Machine Learning</span>
+            <span class="hero-tag">Data Visualization</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View My Projects</a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-right-card">
+            <div class="hero-right-top">
+              <div class="pill">MS Data Science • UTA</div>
+              <div class="pill">Arlington, TX</div>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric-card">
+                <div class="metric-label">Experience</div>
+                <div class="metric-value">3+ yrs</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Projects</div>
+                <div class="metric-value">5+</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Focus</div>
+                <div class="metric-value">Data / ML</div>
+              </div>
+            </div>
+            <div class="hero-right-footer">
+              I’m transitioning from QA to Data Science by building end-to-end projects in Python and SQL.
+              I enjoy creating clean dashboards, clear reports, and models that actually help decisions.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT & SKILLS -->
+      <section id="skills">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">About & Skills</h2>
+            <p class="section-subtitle">Who I am and what I work with.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 14px;">
+          <p style="font-size: 0.85rem;">
+            I’m a graduate student pursuing an MS in Data Science at UTA with a background in QA engineering.
+            I enjoy working with data, creating clear visualizations, and building practical machine learning models.
+            Currently, I’m looking for opportunities as a Data Analyst / Data Scientist where I can combine my testing mindset
+            with data skills to deliver reliable, measurable results.
+          </p>
+        </div>
+
+        <div class="skills-columns">
+          <div class="card">
+            <h3>Languages & Tools</h3>
+            <p>Python, SQL, Git, Jupyter Notebook, Excel</p>
+          </div>
+          <div class="card">
+            <h3>Data & ML</h3>
+            <p>pandas, NumPy, scikit-learn, Matplotlib, Seaborn</p>
+          </div>
+          <div class="card">
+            <h3>Other Strengths</h3>
+            <p>QA Testing, Test Case Design, RCA, Reporting, Collaboration</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Projects</h2>
+            <p class="section-subtitle">A few things I’ve been working on.</p>
+          </div>
+          <a href="https://github.com/" class="section-subtitle" target="_blank" rel="noreferrer">View all on GitHub ↗</a>
+        </div>
+
+        <div class="section-grid">
+          <!-- Project 1 -->
+          <article class="card">
+            <span class="pill-sm">Machine Learning</span>
+            <h3>Health Center Attrition Predictor</h3>
+            <p>
+              Predicted which patients are likely to stop visiting a health center so the team can intervene early.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">pandas</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">Random Forest</span>
+            </div>
+            <ul>
+              <li>Cleaned and prepared patient data, handling missing values and noisy features.</li>
+              <li>Trained and compared multiple models, selecting Random Forest for best performance.</li>
+              <li>Evaluated results using accuracy, precision, recall, and F1-score.</li>
+            </ul>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="card">
+            <span class="pill-sm">EDA & Forecasting</span>
+            <h3>Market Data Analysis & Forecasting</h3>
+            <p>
+              Analyzed time-series market data to find patterns and build simple forecasting baselines.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">pandas</span>
+              <span class="tag">Matplotlib</span>
+              <span class="tag">Time Series</span>
+            </div>
+            <ul>
+              <li>Explored trends, seasonality, and volatility using visualizations and summary stats.</li>
+              <li>Built baseline forecasting models to compare future predictions.</li>
+              <li>Summarized insights in a clean, shareable report.</li>
+            </ul>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="card">
+            <span class="pill-sm">Clustering</span>
+            <h3>Customer Segmentation with K-Means</h3>
+            <p>
+              Grouped customers into segments to help design more targeted marketing strategies.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">K-Means</span>
+              <span class="tag">StandardScaler</span>
+            </div>
+            <ul>
+              <li>Preprocessed customer metrics and selected meaningful features for clustering.</li>
+              <li>Used K-Means and elbow/silhouette methods to choose the number of clusters.</li>
+              <li>Described each cluster with clear business-level summaries.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE & EDUCATION -->
+      <section id="experience">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Experience & Education</h2>
+            <p class="section-subtitle">Where I’ve been and what I’ve studied.</p>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <article class="card">
+            <span class="pill-sm">Work Experience</span>
+            <h3>Quality Assurance Engineer · Wingman Partners</h3>
+            <p>3+ years · [Location]</p>
+            <ul>
+              <li>Designed and executed test cases to ensure stable, high-quality product releases.</li>
+              <li>Created clear summary and RCA reports to help teams fix recurring issues.</li>
+              <li>Collaborated with engineering and product teams to prioritize bugs and improvements.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="pill-sm">Current</span>
+            <h3>MS in Data Science · UTA</h3>
+            <p>Arlington, Texas · Jan 2025 – Present</p>
+            <ul>
+              <li>Coursework in machine learning, data mining, visualization, and big data.</li>
+              <li>Hands-on projects using real-world datasets and Python-based workflows.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="pill-sm">Undergraduate</span>
+            <h3>B.Tech in Computer Science & Engineering</h3>
+            <p>[Your University] · [Year – Year]</p>
+            <ul>
+              <li>Built a strong foundation in programming and computer science fundamentals.</li>
+              <li>Completed projects related to software development and data handling.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Let’s Connect</h2>
+            <p class="section-subtitle">
+              Open to internships and projects in Data Analytics / Data Science.
+            </p>
+          </div>
+        </div>
+
+        <div class="card contact-card">
+          <div>
+            <p style="font-size: 0.85rem; margin-bottom: 10px;">
+              If you’re looking for someone who enjoys working with data, pays attention to detail,
+              and can explain results clearly to non-technical people, I’d be happy to connect.
+            </p>
+            <div class="contact-actions">
+              <span>📧 Email: <a href="mailto:kanishtyagi123@gmail.com">kanishtyagi123@gmail.com</a></span>
+              <span>💼 LinkedIn: <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">View Profile</a></span>
+              <span>💻 GitHub: <a href="https://github.com" target="_blank" rel="noreferrer">View Repos</a></span>
+            </div>
+          </div>
+          <div>
+            <p style="font-size: 0.8rem; color: var(--muted);">
+              Quick snapshot:
+            </p>
+            <ul style="font-size: 0.78rem; color: var(--muted); padding-left: 18px; margin-top: 4px;">
+              <li>MS Data Science student @ UTA</li>
+              <li>3+ years in QA, now transitioning into data roles</li>
+              <li>Interested in Data Analyst / Data Scientist roles</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="social-links">
+        <a href="#top">Back to top ↑</a>
+      </div>
+      <div>© <span id="year"></span> · Built by Kanish Tyagi</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
