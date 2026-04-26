@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanish Tyagi — I Build What Users Need</title>
+<meta name="description" content="Kanish Tyagi — QA Engineer turned Data Scientist turned Product Builder. 3+ years shipping software, MS Data Science @ UT Arlington, CPT-eligible May 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #f8f5f0;
+  --paper-warm: #f2ece3;
+  --cream: #ebe4d8;
+  --rust: #c4532e;
+  --rust-light: #e8674a;
+  --teal: #1a6b5a;
+  --teal-light: #238f78;
+  --navy: #1e2d4a;
+  --gold: #c49a2a;
+  --gold-light: #dbb44a;
+  --text: #2c2c2c;
+  --text-secondary: #6b6560;
+  --text-dim: #9b9590;
+  --border: #d8d0c4;
+  --border-light: #e8e2d8;
+  --card: #ffffff;
+  --card-hover: #fffdf8;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--paper); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+/* ==================== LOADER ==================== */
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.6s var(--ease), visibility 0.6s;
+}
+.loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: var(--paper);
+  font-weight: 900;
+  overflow: hidden;
+}
+.loader-text span {
+  display: inline-block;
+  transform: translateY(100%);
+  animation: slideUp 0.4s var(--ease) forwards;
+}
+@keyframes slideUp { to { transform: translateY(0); } }
+
+/* ==================== NAV ==================== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(248,245,240,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  transition: all 0.3s var(--ease);
+}
+.nav.scrolled { padding: 14px 48px; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+.nav-name { font-family: var(--font-display); font-weight: 900; font-size: 1.15rem; color: var(--ink); letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--text-secondary); font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 1.2px; text-transform: uppercase; transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--rust); }
+.nav-cta {
+  padding: 8px 20px; background: var(--ink); color: var(--paper); font-size: 0.78rem;
+  font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; border: none; border-radius: 4px;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.nav-cta:hover { background: var(--rust); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); margin: 6px 0; transition: 0.3s; }
+
+/* ==================== HERO ==================== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 48px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -20%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(196,83,46,0.07) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -10%; left: -5%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(26,107,90,0.06) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 24px;
+  opacity: 0; animation: fadeIn 0.8s 0.8s var(--ease) forwards;
+}
+.hero-tag::before { content: ''; width: 40px; height: 2px; background: var(--rust); }
+.hero-headline {
+  font-family: var(--font-display); font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  font-weight: 900; line-height: 1.05; color: var(--ink);
+  max-width: 900px; margin-bottom: 28px;
+  opacity: 0; animation: fadeIn 0.8s 1s var(--ease) forwards;
+}
+.hero-headline em { font-style: italic; color: var(--rust); }
+.hero-sub {
+  font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary);
+  max-width: 640px; margin-bottom: 40px;
+  opacity: 0; animation: fadeIn 0.8s 1.2s var(--ease) forwards;
+}
+.hero-proof {
+  display: flex; gap: 48px; flex-wrap: wrap;
+  opacity: 0; animation: fadeIn 0.8s 1.4s var(--ease) forwards;
+}
+.proof-item { display: flex; flex-direction: column; }
+.proof-num {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 900; color: var(--ink);
+  line-height: 1;
+}
+.proof-label { font-size: 0.75rem; color: var(--text-dim); font-weight: 500; letter-spacing: 0.5px; margin-top: 4px; }
+.hero-ctas {
+  display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap;
+  opacity: 0; animation: fadeIn 0.8s 1.6s var(--ease) forwards;
+}
+.btn-primary {
+  padding: 14px 32px; background: var(--ink); color: var(--paper);
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase; border: 2px solid var(--ink);
+  border-radius: 4px; cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.btn-primary:hover { background: var(--rust); border-color: var(--rust); }
+.btn-secondary {
+  padding: 14px 32px; background: transparent; color: var(--ink);
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase; border: 2px solid var(--border);
+  border-radius: 4px; cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.btn-secondary:hover { border-color: var(--ink); }
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* ==================== SECTION SHARED ==================== */
+.section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 900; color: var(--ink); line-height: 1.15; margin-bottom: 20px;
+}
+.section-desc { font-size: 1.05rem; color: var(--text-secondary); max-width: 600px; line-height: 1.8; margin-bottom: 48px; }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ==================== THE STORY (TIMELINE) ==================== */
+.story-divider { width: 100%; border: none; border-top: 1px solid var(--border); margin: 0; }
+.timeline { position: relative; padding-left: 48px; }
+.timeline::before {
+  content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(to bottom, var(--rust), var(--teal), var(--gold));
+}
+.timeline-item { position: relative; margin-bottom: 56px; }
+.timeline-item::before {
+  content: ''; position: absolute; left: -41px; top: 8px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 3px solid var(--rust); background: var(--paper);
+}
+.timeline-item:nth-child(2)::before { border-color: var(--teal); }
+.timeline-item:nth-child(3)::before { border-color: var(--gold); }
+.timeline-item:nth-child(4)::before { border-color: var(--navy); }
+.timeline-year {
+  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500;
+  color: var(--text-dim); letter-spacing: 1px; margin-bottom: 4px;
+}
+.timeline-role { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--ink); }
+.timeline-company { font-size: 0.9rem; color: var(--rust); font-weight: 600; margin-bottom: 12px; }
+.timeline-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; max-width: 580px; }
+.timeline-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.timeline-tag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px;
+  padding: 4px 12px; border-radius: 3px; background: var(--cream); color: var(--text-secondary);
+}
+
+/* ==================== WHAT I ACTUALLY DO (DEEP SKILLS) ==================== */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+.skill-deep {
+  background: var(--card); border: 1px solid var(--border-light); border-radius: 8px;
+  padding: 36px; transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+}
+.skill-deep:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); border-color: var(--border); }
+.skill-deep::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.skill-deep:nth-child(1)::before { background: var(--rust); }
+.skill-deep:nth-child(2)::before { background: var(--teal); }
+.skill-deep:nth-child(3)::before { background: var(--gold); }
+.skill-deep:nth-child(4)::before { background: var(--navy); }
+.skill-icon { font-size: 1.8rem; margin-bottom: 16px; }
+.skill-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.skill-tagline { font-size: 0.82rem; color: var(--rust); font-weight: 600; margin-bottom: 16px; letter-spacing: 0.3px; }
+.skill-proof-list { list-style: none; }
+.skill-proof-list li {
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+  padding: 8px 0; border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.skill-proof-list li:last-child { border-bottom: none; }
+.skill-proof-list li::before { content: '→'; color: var(--rust); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.skill-tools {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+.skill-tool {
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+  padding: 3px 10px; border-radius: 3px; background: var(--paper-warm); color: var(--text-dim);
+}
+
+/* ==================== PROOF (PROJECTS) ==================== */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; }
+.project-card {
+  background: var(--card); border: 1px solid var(--border-light); border-radius: 8px;
+  overflow: hidden; transition: all 0.3s var(--ease);
+}
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+.project-header {
+  padding: 28px 28px 0;
+}
+.project-type {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.project-type.pm { color: var(--rust); }
+.project-type.ds { color: var(--teal); }
+.project-type.oss { color: var(--gold); }
+.project-type.ai { color: var(--navy); }
+.project-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.project-body { padding: 0 28px 28px; }
+.project-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+.project-impact {
+  background: var(--paper-warm); border-radius: 6px; padding: 14px 18px;
+  font-size: 0.82rem; color: var(--text); font-weight: 500;
+}
+.project-impact strong { color: var(--ink); }
+.project-links { display: flex; gap: 12px; margin-top: 16px; }
+.project-link {
+  font-size: 0.75rem; font-weight: 600; color: var(--rust); text-decoration: none;
+  letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.3s;
+}
+.project-link:hover { color: var(--ink); }
+
+/* ==================== ACHIEVEMENTS MARQUEE ==================== */
+.marquee-section {
+  background: var(--ink); padding: 48px 0; overflow: hidden; position: relative;
+}
+.marquee-track {
+  display: flex; gap: 64px; animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  color: rgba(248,245,240,0.4); flex-shrink: 0;
+  display: flex; align-items: center; gap: 16px;
+}
+.marquee-item span { color: var(--rust-light); font-size: 0.9rem; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ==================== EDUCATION ==================== */
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.edu-card {
+  background: var(--card); border: 1px solid var(--border-light); border-radius: 8px;
+  padding: 32px; transition: all 0.3s var(--ease);
+}
+.edu-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
+.edu-degree { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+.edu-school { font-size: 0.9rem; color: var(--rust); font-weight: 600; margin-bottom: 8px; }
+.edu-year { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px; }
+.edu-detail { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+
+/* ==================== CERTIFICATIONS ==================== */
+.certs-list { display: flex; flex-direction: column; gap: 12px; }
+.cert-row {
+  display: flex; align-items: center; gap: 20px; padding: 16px 24px;
+  background: var(--card); border: 1px solid var(--border-light); border-radius: 8px;
+  transition: all 0.3s;
+}
+.cert-row:hover { border-color: var(--border); }
+.cert-badge {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.cert-badge.b1 { background: var(--rust); }
+.cert-badge.b2 { background: var(--teal); }
+.cert-badge.b3 { background: var(--gold); }
+.cert-badge.b4 { background: var(--navy); }
+.cert-name { font-size: 0.92rem; font-weight: 600; color: var(--ink); flex: 1; }
+.cert-issuer { font-size: 0.82rem; color: var(--text-dim); }
+
+/* ==================== BEYOND WORK ==================== */
+.beyond-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.beyond-card {
+  background: var(--card); border: 1px solid var(--border-light); border-radius: 8px;
+  padding: 28px; text-align: center; transition: all 0.3s var(--ease);
+}
+.beyond-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+.beyond-emoji { font-size: 2.2rem; margin-bottom: 12px; }
+.beyond-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.beyond-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+
+/* ==================== CONTACT ==================== */
+.contact-section {
+  background: var(--ink); padding: 100px 48px; text-align: center;
+}
+.contact-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--rust-light); margin-bottom: 16px;
+}
+.contact-headline {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900; color: var(--paper); line-height: 1.15; margin-bottom: 20px;
+}
+.contact-sub { font-size: 1rem; color: rgba(248,245,240,0.5); max-width: 500px; margin: 0 auto 36px; line-height: 1.8; }
+.contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border: 1px solid rgba(248,245,240,0.15); border-radius: 4px;
+  color: var(--paper); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+  transition: all 0.3s;
+}
+.contact-link:hover { background: rgba(248,245,240,0.08); border-color: rgba(248,245,240,0.3); }
+.contact-status {
+  margin-top: 36px; font-family: var(--font-mono); font-size: 0.75rem;
+  color: rgba(248,245,240,0.3); letter-spacing: 1px;
+}
+.contact-status .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; margin-right: 8px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ==================== FOOTER ==================== */
+.footer {
+  padding: 24px 48px; background: var(--ink); border-top: 1px solid rgba(248,245,240,0.06);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-left { font-size: 0.78rem; color: rgba(248,245,240,0.25); }
+.footer-right { font-size: 0.72rem; color: rgba(248,245,240,0.15); font-family: var(--font-mono); }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .nav { padding: 16px 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-proof { gap: 28px; }
+  .section { padding: 60px 24px; }
+  .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+  .hero-headline { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+  .contact-section { padding: 60px 24px; }
+  .footer { flex-direction: column; gap: 8px; padding: 20px 24px; }
+  .timeline { padding-left: 36px; }
+  .timeline::before { left: 10px; }
+  .timeline-item::before { left: -34px; }
+  .mobile-nav {
+    display: none; position: fixed; inset: 0; z-index: 99;
+    background: var(--paper); flex-direction: column;
+    align-items: center; justify-content: center; gap: 32px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+    color: var(--ink); text-decoration: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-text" id="loader-text"></div>
+</div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#story" onclick="closeMobile()">Story</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#proof" onclick="closeMobile()">Proof</a>
+  <a href="#education" onclick="closeMobile()">Education</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-name">Kanish Tyagi</div>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#skills">What I Do</a></li>
+    <li><a href="#proof">Proof</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#beyond">Beyond</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's Talk</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Product · Data · AI · CPT-Eligible May 2026</div>
+    <h1 class="hero-headline">I broke software for 3 years.<br>Now I <em>build</em> what users actually need.</h1>
+    <p class="hero-sub">QA Engineer → M.S. Data Science → Product. I've sat in bug triage, stared at dashboards, priced B2B SaaS, and shipped code to Microsoft's GitHub. I don't guess what users want — I've debugged what goes wrong when you get it wrong.</p>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <div class="proof-num" data-target="3" data-suffix="+">0</div>
+        <div class="proof-label">Years in Software</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num" data-target="7">0</div>
+        <div class="proof-label">PRs Merged @ Microsoft</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num" data-target="87" data-suffix="%">0</div>
+        <div class="proof-label">Best ML Accuracy</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num" data-target="3">0</div>
+        <div class="proof-label">B2B Pricing Tiers Built</div>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Hire Me</a>
+      <a href="#proof" class="btn-secondary">See My Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACHIEVEMENTS MARQUEE ==================== -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item"><span>★</span> 2nd Runner-Up AWS GenAI Hackathon</div>
+    <div class="marquee-item"><span>★</span> National-Level Athlete · Discus &amp; Shotput</div>
+    <div class="marquee-item"><span>★</span> Microsoft Open Source Contributor</div>
+    <div class="marquee-item"><span>★</span> FoundersBoost NYC Accelerator · ConsenTerra</div>
+    <div class="marquee-item"><span>★</span> ISTQB Certified Tester</div>
+    <div class="marquee-item"><span>★</span> Google Data Analytics Certified</div>
+    <div class="marquee-item"><span>★</span> UTA Business Analytics Symposium Speaker</div>
+    <div class="marquee-item"><span>★</span> 3.67 GPA · M.S. Data Science @ UT Arlington</div>
+    <!-- duplicated for seamless loop -->
+    <div class="marquee-item"><span>★</span> 2nd Runner-Up AWS GenAI Hackathon</div>
+    <div class="marquee-item"><span>★</span> National-Level Athlete · Discus &amp; Shotput</div>
+    <div class="marquee-item"><span>★</span> Microsoft Open Source Contributor</div>
+    <div class="marquee-item"><span>★</span> FoundersBoost NYC Accelerator · ConsenTerra</div>
+    <div class="marquee-item"><span>★</span> ISTQB Certified Tester</div>
+    <div class="marquee-item"><span>★</span> Google Data Analytics Certified</div>
+    <div class="marquee-item"><span>★</span> UTA Business Analytics Symposium Speaker</div>
+    <div class="marquee-item"><span>★</span> 3.67 GPA · M.S. Data Science @ UT Arlington</div>
+  </div>
+</div>
+
+<!-- ==================== MY STORY ==================== -->
+<section class="section" id="story">
+  <div class="reveal">
+    <div class="section-label">The Arc</div>
+    <h2 class="section-title">Most people pick a lane.<br>I picked the whole highway.</h2>
+    <p class="section-desc">Every role taught me something the next one needed. QA taught me how products fail. Data Science taught me how to measure what matters. Product taught me how to decide what to build next.</p>
+  </div>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-year">APR 2022 – NOV 2024</div>
+      <div class="timeline-role">QA Engineer</div>
+      <div class="timeline-company">Wingman Partners · Noida, India</div>
+      <div class="timeline-desc">Owned quality across 4 product modules. Built Selenium automation suites that cut manual regression by 40%. Reduced defect leakage by 30% through structured root-cause analysis. Worked cross-functionally with PMs and devs — learned firsthand how product decisions ripple into real user pain.</div>
+      <div class="timeline-tags">
+        <span class="timeline-tag">Selenium</span>
+        <span class="timeline-tag">Jira</span>
+        <span class="timeline-tag">API Testing</span>
+        <span class="timeline-tag">Confluence</span>
+        <span class="timeline-tag">Regression Analysis</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">OCT 2021 – MAR 2022</div>
+      <div class="timeline-role">Software Engineer Intern</div>
+      <div class="timeline-company">Wingman Partners · Noida, India</div>
+      <div class="timeline-desc">First real engineering work. Contributed to full-stack web applications — HTML/CSS front-end, API integrations, database queries. Learned how software actually gets built before learning how to break it.</div>
+      <div class="timeline-tags">
+        <span class="timeline-tag">HTML/CSS</span>
+        <span class="timeline-tag">REST APIs</span>
+        <span class="timeline-tag">SQL</span>
+        <span class="timeline-tag">Full-Stack</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">JAN 2025 – DEC 2026</div>
+      <div class="timeline-role">M.S. Data Science</div>
+      <div class="timeline-company">University of Texas at Arlington</div>
+      <div class="timeline-desc">Studying the math behind the decisions: ML, optimization, statistical inference. Built production-grade ML models (87% accuracy malware detection, employee attrition prediction). AWS GenAI Hackathon 2nd runner-up. Speaker at UTA Business Analytics Symposium 2026.</div>
+      <div class="timeline-tags">
+        <span class="timeline-tag">Python</span>
+        <span class="timeline-tag">ML / Deep Learning</span>
+        <span class="timeline-tag">Convex Optimization</span>
+        <span class="timeline-tag">NLP</span>
+        <span class="timeline-tag">LLMs</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">JAN 2026 – MAR 2026</div>
+      <div class="timeline-role">Product Strategy(As Contributor) · ConsenTerra AI</div>
+      <div class="timeline-company">Early-Stage AI Startup · FoundersBoost NYC Spring 2026</div>
+      <div class="timeline-desc">Designed B2B pricing framework (3-tier model: $99/$249/$499), built onboarding questionnaires, positioned GTM strategy for enterprise buyers. Worked directly with the founder on product-market fit. This isn't a class project — it's a real startup accepted into an accelerator.</div>
+      <div class="timeline-tags">
+        <span class="timeline-tag">B2B SaaS Pricing</span>
+        <span class="timeline-tag">GTM Strategy</span>
+        <span class="timeline-tag">User Onboarding</span>
+        <span class="timeline-tag">Product-Market Fit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="story-divider">
+
+<!-- ==================== DEEP SKILLS ==================== -->
+<section class="section" id="skills">
+  <div class="reveal">
+    <div class="section-label">What I Actually Do</div>
+    <h2 class="section-title">Not buzzwords. Proof.</h2>
+    <p class="section-desc">Every skill here has a story behind it — a project shipped, a problem solved, a metric moved. Click any card to see what I've actually done, not just what I claim to know.</p>
+  </div>
+
+  <div class="skills-grid reveal">
+
+    <div class="skill-deep">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-name">Product Strategy & Management</div>
+      <div class="skill-tagline">I've priced SaaS, designed onboarding, and positioned products for enterprise buyers.</div>
+      <ul class="skill-proof-list">
+        <li>Built 3-tier B2B pricing model for ConsenTerra AI (Starter $99 → Growth $499/mo)</li>
+        <li>Designed onboarding questionnaires that reduced time-to-value for new users</li>
+        <li>Wrote GTM positioning documents for enterprise AI compliance buyers</li>
+        <li>Evaluated 20+ job postings with structured go/no-go frameworks — PM thinking applied to my own search</li>
+        <li>Sent cold emails to founders with PM-style friction-point critiques of their products</li>
+      </ul>
+      <div class="skill-tools">
+        <span class="skill-tool">Jira</span>
+        <span class="skill-tool">Figma</span>
+        <span class="skill-tool">Notion</span>
+        <span class="skill-tool">Roadmapping</span>
+        <span class="skill-tool">PRDs</span>
+        <span class="skill-tool">User Research</span>
+      </div>
+    </div>
+
+    <div class="skill-deep">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Data Science & Analytics</div>
+      <div class="skill-tagline">I build models that work, not just notebooks that pass.</div>
+      <ul class="skill-proof-list">
+        <li>87% accuracy Random Forest model predicting employee attrition — deployed on Streamlit</li>
+        <li>Built malware detection system using decision trees on IoT network data (EE5364 course project)</li>
+        <li>Analyzed 60,907 Stack Overflow responses to quantify GenAI's ROI on developer productivity</li>
+        <li>Customer segmentation using K-Means clustering for targeted marketing</li>
+        <li>Airbnb price EDA — feature engineering across 30+ variables</li>
+      </ul>
+      <div class="skill-tools">
+        <span class="skill-tool">Python</span>
+        <span class="skill-tool">Pandas</span>
+        <span class="skill-tool">Scikit-learn</span>
+        <span class="skill-tool">TensorFlow</span>
+        <span class="skill-tool">SQL</span>
+        <span class="skill-tool">Tableau</span>
+        <span class="skill-tool">Streamlit</span>
+      </div>
+    </div>
+
+    <div class="skill-deep">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">AI, GenAI & Open Source</div>
+      <div class="skill-tagline">I don't just use AI tools — I contribute to the ones other people use.</div>
+      <ul class="skill-proof-list">
+        <li>7 merged PRs to Microsoft's agent-governance-toolkit — CodeQL, CSP headers, Colab notebooks, docs</li>
+        <li>Built Adaptive AI Study Tutor using Multi-Armed Bandit RL + Claude API</li>
+        <li>Wrote 5 technical blog posts on AI governance published to Microsoft's community docs</li>
+        <li>Built policy YAML validation CLI for AI governance workflows (open PR)</li>
+        <li>AWS GenAI Hackathon 2nd runner-up across Texas Universities</li>
+      </ul>
+      <div class="skill-tools">
+        <span class="skill-tool">LLMs</span>
+        <span class="skill-tool">Claude API</span>
+        <span class="skill-tool">GitHub Actions</span>
+        <span class="skill-tool">TypeScript</span>
+        <span class="skill-tool">Python</span>
+        <span class="skill-tool">CodeQL</span>
+        <span class="skill-tool">Google Colab</span>
+      </div>
+    </div>
+
+    <div class="skill-deep">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">Quality Engineering & Testing</div>
+      <div class="skill-tagline">3 years of finding the bugs before users do.</div>
+      <ul class="skill-proof-list">
+        <li>Owned QA for 4 product modules across 10+ RESTful API endpoints at Wingman Partners</li>
+        <li>Built Selenium + Python automation suites — reduced manual regression effort by 40%</li>
+        <li>Achieved 30% defect reduction through structured bug analysis and prioritization</li>
+        <li>Documented processes in Confluence — maintained test documentation for the entire QA team</li>
+        <li>ISTQB Certified Foundation Level — formal testing methodology</li>
+      </ul>
+      <div class="skill-tools">
+        <span class="skill-tool">Selenium</span>
+        <span class="skill-tool">Postman</span>
+        <span class="skill-tool">Jira</span>
+        <span class="skill-tool">Confluence</span>
+        <span class="skill-tool">CI/CD</span>
+        <span class="skill-tool">REST APIs</span>
+        <span class="skill-tool">ISTQB</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== PROOF (PROJECTS) ==================== -->
+<section class="section" id="proof">
+  <div class="reveal">
+    <div class="section-label">Proof of Work</div>
+    <h2 class="section-title">Talk is cheap.<br>Here's what I shipped.</h2>
+  </div>
+
+  <div class="projects-grid reveal">
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-type pm">Product Strategy</div>
+        <div class="project-title">ConsenTerra AI — B2B Pricing & GTM</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">Designed the entire pricing architecture and go-to-market positioning for an early-stage AI compliance startup. Built 3-tier model, onboarding flows, and enterprise buyer personas. Startup accepted into FoundersBoost NYC Spring 2026 accelerator.</div>
+        <div class="project-impact"><strong>Impact:</strong> Pricing framework adopted by founder. GTM positioning used in accelerator pitch. Founder publicly credited work on LinkedIn.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-type oss">Open Source · Microsoft</div>
+        <div class="project-title">Agent Governance Toolkit Contributions</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">7 merged PRs to microsoft/agent-governance-toolkit. Added CodeQL security analysis for TypeScript, Content-Security-Policy headers, three Google Colab onboarding notebooks, five Dev.to blog posts, and comprehensive Python docstrings.</div>
+        <div class="project-impact"><strong>Impact:</strong> Direct contributions to Microsoft's open-source AI governance infrastructure used by enterprise teams.</div>
+        <div class="project-links">
+          <a href="https://github.com/microsoft/agent-governance-toolkit" target="_blank" class="project-link">GitHub →</a>
+          <a href="https://dev.to/kanishtyagii" target="_blank" class="project-link">Blog Posts →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-type ai">AI / RL</div>
+        <div class="project-title">Adaptive AI Study Tutor</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">Built an intelligent tutoring system using UCB1 Multi-Armed Bandit reinforcement learning + Claude API. The system adapts question difficulty in real-time based on student performance. Deployed on Streamlit.</div>
+        <div class="project-impact"><strong>Impact:</strong> Personalized learning paths generated dynamically — not a static quiz, an actual adaptive system.</div>
+        <div class="project-links">
+          <a href="https://github.com/kanish5" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-type ds">Data Science</div>
+        <div class="project-title">Health Center Attrition Predictor</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">End-to-end ML pipeline predicting employee attrition using Random Forest. Feature engineering across 35 variables, hyperparameter tuning, interpretability analysis. Deployed as a live Streamlit dashboard.</div>
+        <div class="project-impact"><strong>Impact:</strong> 87% accuracy. Identified top attrition drivers: overtime, job satisfaction, distance from home.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-type ds">Data Analysis</div>
+        <div class="project-title">GenAI ROI — Stack Overflow 2024</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">Analyzed 60,907 developer survey responses to quantify the real productivity impact of GenAI tools. Segmented by experience level, language, and company size. Built interactive visualizations.</div>
+        <div class="project-impact"><strong>Impact:</strong> Data-driven framework showing where AI tools help most vs. where they don't — not hype, evidence.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-type ds">ML / IoT Security</div>
+        <div class="project-title">IoT Malware Detection System</div>
+      </div>
+      <div class="project-body">
+        <div class="project-desc">Course project (EE5364) building decision tree classifiers using entropy and mutual information on CTU-IoT-Malware-Capture dataset. Full pipeline in Google Colab with feature selection and evaluation metrics.</div>
+        <div class="project-impact"><strong>Impact:</strong> Academic project demonstrating applied ML on real-world cybersecurity data — not toy datasets.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== EDUCATION ==================== -->
+<section class="section" id="education">
+  <div class="reveal">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">The foundation.</h2>
+  </div>
+
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-degree">M.S. Data Science</div>
+      <div class="edu-school">University of Texas at Arlington</div>
+      <div class="edu-year">Jan 2025 – Dec 2026 · GPA 3.67</div>
+      <div class="edu-detail">Machine Learning, Deep Learning, Convex Optimization, NLP, Statistical Inference. AWS GenAI Hackathon finalist. Speaker at Business Analytics Symposium 2026. CPT-eligible May 2026.</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.Tech Information Technology</div>
+      <div class="edu-school">UPTU Lucknow (ABESIT)</div>
+      <div class="edu-year">Jul 2018 – Jul 2022</div>
+      <div class="edu-detail">Foundation in computer science, algorithms, databases, and software engineering. National-level competitive athlete during undergrad — Discus Throw and Shotput.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CERTIFICATIONS ==================== -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Certifications & Recognition</div>
+    <h2 class="section-title">Credentials that back it up.</h2>
+  </div>
+
+  <div class="certs-list reveal">
+    <div class="cert-row"><div class="cert-badge b1"></div><div class="cert-name">ISTQB Certified Tester — Foundation Level</div><div class="cert-issuer">ISTQB</div></div>
+    <div class="cert-row"><div class="cert-badge b2"></div><div class="cert-name">Google Data Analytics Professional Certificate</div><div class="cert-issuer">Google / Coursera</div></div>
+    <div class="cert-row"><div class="cert-badge b2"></div><div class="cert-name">Google Project Management Certificate</div><div class="cert-issuer">Google / Coursera</div></div>
+    <div class="cert-row"><div class="cert-badge b3"></div><div class="cert-name">2nd Runner-Up — AWS GenAI Hackathon (Texas Universities)</div><div class="cert-issuer">AWS</div></div>
+    <div class="cert-row"><div class="cert-badge b4"></div><div class="cert-name">Speaker — UTA Business Analytics Symposium 2026</div><div class="cert-issuer">UT Arlington</div></div>
+    <div class="cert-row"><div class="cert-badge b1"></div><div class="cert-name">FoundersBoost NYC Spring 2026 — ConsenTerra AI</div><div class="cert-issuer">FoundersBoost</div></div>
+    <div class="cert-row"><div class="cert-badge b2"></div><div class="cert-name">Microsoft Open Source Contributor — 7 Merged PRs</div><div class="cert-issuer">Microsoft</div></div>
+  </div>
+</section>
+
+<!-- ==================== BEYOND WORK ==================== -->
+<section class="section" id="beyond">
+  <div class="reveal">
+    <div class="section-label">Beyond the Resume</div>
+    <h2 class="section-title">I'm not just a candidate.</h2>
+    <p class="section-desc">The best products are built by people who understand humans, not just systems. Here's what shapes how I think.</p>
+  </div>
+
+  <div class="beyond-grid reveal">
+    <div class="beyond-card">
+      <div class="beyond-emoji">🥇</div>
+      <div class="beyond-title">National-Level Athlete</div>
+      <div class="beyond-desc">Competed in Discus Throw and Shotput at the national level. Discipline, pain tolerance, and structured training — the same traits that make me grind through ambiguity in product work.</div>
+    </div>
+    <div class="beyond-card">
+      <div class="beyond-emoji">💪</div>
+      <div class="beyond-title">Fitness & Nutrition Nerd</div>
+      <div class="beyond-desc">I track macros, program my own workouts, and geek out on exercise science. Consistency compounds — in the gym and in careers.</div>
+    </div>
+    <div class="beyond-card">
+      <div class="beyond-emoji">🧮</div>
+      <div class="beyond-title">Numerology Enthusiast</div>
+      <div class="beyond-desc">I study patterns in numbers the way most people study horoscopes — except I actually find useful patterns. Unconventional? Sure. But curiosity has no dress code.</div>
+    </div>
+    <div class="beyond-card">
+      <div class="beyond-emoji">📦</div>
+      <div class="beyond-title">Digital Product Builder</div>
+      <div class="beyond-desc">Launched the "OPT/F-1 Survival Toolkit" on Gumroad — a 10-section guide for international students navigating CPT/OPT. Built from personal experience of missing job offers due to processing delays.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section class="contact-section" id="contact">
+  <div class="contact-label">Let's Build Something</div>
+  <h2 class="contact-headline">I sit at the intersection of<br>Product, Data, and AI.</h2>
+  <p class="contact-sub">Targeting roles in Product Management, Data & Business Analysis, AI/ML Engineering, and Product Strategy. CPT-eligible May 7, 2026. Based in Arlington, TX — open to relocation anywhere.</p>
+  <div class="contact-links">
+    <a href="mailto:kanishtyagi@gmail.com" class="contact-link">✉ Email</a>
+    <a href="https://www.linkedin.com/in/kanishtyagi123/" target="_blank" class="contact-link">in LinkedIn</a>
+    <a href="https://github.com/kanish5" target="_blank" class="contact-link">⌨ GitHub</a>
+    <a href="tel:+16822170329" class="contact-link">📱 +1 (682) 217-0329</a>
+  </div>
+  <div class="contact-status"><span class="dot"></span>Actively interviewing · Summer 2026</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">© 2026 Kanish Tyagi. Built with obsessive attention to detail.</div>
+  <div class="footer-right">kanish5.github.io/kanish-portfolio</div>
+</footer>
+
+<script>
+// LOADER
+const loaderText = document.getElementById('loader-text');
+const chars = "Kanish Tyagi".split('');
+chars.forEach((c, i) => {
+  const span = document.createElement('span');
+  span.textContent = c === ' ' ? '\u00A0' : c;
+  span.style.animationDelay = (i * 0.05) + 's';
+  loaderText.appendChild(span);
+});
+setTimeout(() => document.getElementById('loader').classList.add('done'), 1400);
+
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// MOBILE NAV
+function toggleMobile() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+function closeMobile() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+// COUNTER ANIMATION
+function animateCounters() {
+  document.querySelectorAll('.proof-num').forEach(el => {
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    const dur = 1200;
+    const start = performance.now();
+    (function tick() {
+      const p = Math.min((performance.now() - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    })();
+  });
+}
+const heroObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounters(); heroObs.disconnect(); } });
+}, { threshold: 0.3 });
+heroObs.observe(document.querySelector('.hero-proof'));
+
+// REVEAL ON SCROLL
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// SMOOTH ANCHORS
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    const t = document.querySelector(this.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
